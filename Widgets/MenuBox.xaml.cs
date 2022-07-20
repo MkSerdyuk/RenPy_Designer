@@ -23,7 +23,17 @@ namespace Ren_Py_Designer.Widgets
         public MenuBox()
         {
             InitializeComponent();
-            this.Content.
+            foreach (string item in Menus.MenuList.Pages.Keys)
+            { 
+                MenuChooser.Items.Add(item);
+            }
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Page examplePage = Menus.MenuList.Pages[MenuChooser.SelectedItem.ToString()]; //поулчаем тип страницы, чтобы создать такую же
+            Type pageType = examplePage.GetType();
+            Content.Navigate(Activator.CreateInstance(pageType)); //создаем страницу с нужным нам типом
         }
     }
 }

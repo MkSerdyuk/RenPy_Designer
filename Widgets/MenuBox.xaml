@@ -10,7 +10,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Frame x:Name="Content"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" NavigationUIVisibility="Hidden"/>
-        <ComboBox HorizontalAlignment="Left" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="40"/>
+        <Frame x:Name="Content"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" NavigationUIVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+        <ComboBox x:Name="MenuChooser"  HorizontalAlignment="Left" Width="100" SelectionChanged="ComboBox_SelectionChanged"/>
     </Grid>
 </UserControl>

@@ -12,4 +12,17 @@
     <PackageReference Include="WPF-UI" Version="2.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Widgets\Menus\TestPage2.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Widgets\Menus\TestPage2.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
 </Project>
