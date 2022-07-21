@@ -13,7 +13,9 @@ namespace Ren_Py_Designer.Widgets.Menus
         public static Dictionary<string, Page> Pages = new Dictionary<string, Page>() 
             { 
                 { "Test", new TestPage() }, 
-                { "Test2", new TestPage2() } 
+                { "Test2", new TestPage2() },
+                { "WorkSpace", new WorkSpace() },
+                { "NodeList", new NodeList() } 
             };
     }
 }
