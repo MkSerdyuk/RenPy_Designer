@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Ren_Py_Designer.Widgets.Menus
+namespace RenPy_Visual_Designer.FlowChartFramework.View
 {
     /// <summary>
-    /// Interaction logic for WorkSpace.xaml
+    /// Interaction logic for WorkSpaceView.xaml
     /// </summary>
-    public partial class WorkSpace : Page
+    public partial class WorkSpaceView : UserControl
     {
-        public WorkSpace()
+        public WorkSpaceView()
         {
             InitializeComponent();
         }

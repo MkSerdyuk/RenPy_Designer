@@ -3,10 +3,9 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Ren_Py_Designer.Widgets.Menus" xmlns:nodeList="clr-namespace:NodeNetwork.Toolkit.NodeList;assembly=NodeNetworkToolkit"
+      xmlns:local="clr-namespace:Ren_Py_Designer.Widgets.Menus"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="NodeList">
 
-    <nodeList:NodeListView x:Name="nodeList" Margin="0,0,0,0" Background="#202020" Foreground="White"/>
 </Page>
