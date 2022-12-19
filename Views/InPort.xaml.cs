@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ren_Py_Designer.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,9 @@ namespace Flowchart_Framework.View
     /// </summary>
     public partial class InPort : UserControl
     {
+
+        
+
         private string _value;
 
         public List<OutPort> Linked = new List<OutPort>();
@@ -27,6 +31,11 @@ namespace Flowchart_Framework.View
         private List<Connector> _connectors = new List<Connector>();
 
         public Block Parent;
+
+        public string ParentValue
+        {
+            get { return Parent.Value; }
+        }
 
         public string Value
         {
@@ -53,6 +62,11 @@ namespace Flowchart_Framework.View
         private void Port_LeftMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (PortManager.From != null)
+                if (PortManager.From.GetType() != typeof(MultyOutPort) && PortManager.From.Linked.Count >= 1)
+            {
+                return;
+            }
+            if (PortManager.From != null)
             {
                 ((Ellipse)PortManager.From.Grid.Children[0]).Fill = Brushes.White;
                 PortManager.To = this;
@@ -60,7 +74,9 @@ namespace Flowchart_Framework.View
                 //Connector crunch = new Connector(PortManager.From, PortManager.To); //англ костыль
                 PortManager.To._source = PortManager.From;
                 //PortManager.From.Grid.Children.Add(crunch);
-                PortManager.From.Linked.Add(this);
+                List<InPort> newList = PortManager.From.Linked.ToList();
+                newList.Add(this);
+                PortManager.From.Linked = newList;
 
                 Linked.Add(PortManager.From);
 
@@ -83,6 +99,10 @@ namespace Flowchart_Framework.View
 
             foreach (OutPort linked in Linked.ToList<OutPort>())
             {
+                List<InPort> newList = linked.Linked.ToList();
+                newList.Remove(this);
+                linked.Linked = newList;
+
                 Linked.Remove(linked);
             }
 

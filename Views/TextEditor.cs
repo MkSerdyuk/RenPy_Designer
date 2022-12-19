@@ -11,11 +11,16 @@ namespace Flowchart_Framework.View
     {
         private TextBox _textBox = new TextBox();
 
+        public delegate void EventHandler(object sender, ValueChangedEventArgs e);
+
+        public event EventHandler ValueChanged;
+
         public override string Value
         {
             get { return _value; }
             set 
-            { 
+            {
+                ValueChanged?.Invoke(this, new ValueChangedEventArgs(_textBox.Text));
                 _value = value; 
                 Out.Value = value + Command.Replace("{val}", _textBox.Text) + Endl;
             }

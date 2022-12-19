@@ -1,20 +1,25 @@
 ﻿using Flowchart_Framework.View;
+using Ren_Py_Designer.Views.Editors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 
 namespace Flowchart_Framework.View.Blocks
 {
-    public class ShowBox : Block
+    public class JumpBlock : Block
     {
         public InPort In = new InPort();
-        public TextEditor Editor = new TextEditor();
+        public ReturnableEditor Editor = new ReturnableEditor();
 
-        public ShowBox()
+        private void TargetLabelChanged(object sender, ValueChangedEventArgs e)
+        {
+
+        }
+
+        public JumpBlock()
         {
             InitializeComponent();
 
@@ -30,22 +35,20 @@ namespace Flowchart_Framework.View.Blocks
 
             Label label = new Label();
 
-            label.Content = "Show";
+            label.Content = "Jump";
             label.SetValue(Grid.RowProperty, 0);
             label.SetValue(Grid.ColumnProperty, 0);
             label.SetValue(Grid.ColumnSpanProperty, 3);
 
-            Editor.Command = "  show {val}";
-            Editor.Endl = "\n";
-
             MainGrid.Children.Add(In);
             MainGrid.Children.Add(Editor);
             MainGrid.Children.Add(label);
-        }
 
-        public override void InputChanged()
-        {
-            Editor.Value = In.Value;
+            Editor.Command = "  jump {val}";
+            Editor.Endl = "\n";
+
+            Editor.ValueChanged += TargetLabelChanged;
+            
         }
     }
 }

@@ -20,12 +20,25 @@ namespace Flowchart_Framework.View
     /// <summary>
     /// Interaction logic for Port.xaml
     /// </summary>
+    /// 
+
+    public class LinkedChangedEventArgs
+    {
+        public LinkedChangedEventArgs(List<InPort> linked) { Linked = linked; }
+        public List<InPort> Linked { get; }
+    }
+
     public partial class OutPort : UserControl
     {
+        public delegate void EventHandler(object sender, LinkedChangedEventArgs e);
+        public delegate void ValueEventHandler(object sender, ValueChangedEventArgs e);
+
+        public event EventHandler LinkedChanged;
+        public event ValueEventHandler ValueChanged;
 
         private string _value;
 
-        public string Value
+        public virtual string Value
         {
             get { return _value; }
             set
@@ -41,7 +54,40 @@ namespace Flowchart_Framework.View
             }
         }        
 
-        public List<InPort> Linked = new List<InPort>();
+        public List<InPort> _linked = new List<InPort>();
+
+        public void LinkedValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            ValueChanged?.Invoke(sender, e);
+        }
+
+        public virtual List<InPort> Linked
+        {
+
+            get { return _linked; }
+            set 
+            {
+               var type = this.GetType();
+                if (value.Count <= 1)
+                {
+                    if (Linked.Count > 0)
+                    {
+                        Linked[0].Parent.ValueChanged -= LinkedValueChanged;
+                    }
+                    if (value.Count > 0)
+                    {
+                        value[0].Parent.ValueChanged += LinkedValueChanged;
+                        ValueChanged?.Invoke(null, new ValueChangedEventArgs(value[0].Parent.Value));
+                    }
+                    LinkedChanged?.Invoke(this, new LinkedChangedEventArgs(value));
+                    _linked = value;
+                }
+                else
+                {
+                    throw new InvalidOperationException("SinglePort takes to linked ports");
+                }
+            }
+        }
 
         public void UpdateOut()
         {

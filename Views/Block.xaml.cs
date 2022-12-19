@@ -19,14 +19,34 @@ namespace Flowchart_Framework.View
     /// <summary>
     /// Interaction logic for Block.xaml
     /// </summary>
+    ///
     public partial class Block : UserControl
     {
+        public delegate void EventHandler (object sender, ValueChangedEventArgs e);
+
+        public event EventHandler<ValueChangedEventArgs> ValueChanged;
+
         public Block()
         {
             InitializeComponent();
         }
 
         public Canvas Parent;
+
+        private string _value = "";
+
+        public string Value 
+        { 
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                ValueChanged?.Invoke (this, new ValueChangedEventArgs (value));
+                _value = value;
+            }
+        }
 
         private string _state = "static";
 
@@ -56,7 +76,7 @@ namespace Flowchart_Framework.View
         {
             if (_state == "active")
             {
-                var position = e.GetPosition(Parent);
+                var position = e.GetPosition(PortManager.Canvas);
                 Canvas.SetLeft(this, position.X - 50);
                 Canvas.SetTop(this, position.Y - 15);
             }

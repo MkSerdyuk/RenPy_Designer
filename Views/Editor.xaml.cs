@@ -18,8 +18,20 @@ namespace Flowchart_Framework.View
     /// <summary>
     /// Interaction logic for Editor.xaml
     /// </summary>
+    /// 
+
+    public class ValueChangedEventArgs
+    {
+        public ValueChangedEventArgs(string value) { Value = value; }
+        public string Value { get; }
+    }
+
     public partial class Editor : UserControl
     {
+        public delegate void EventHandler(object sender, ValueChangedEventArgs e);
+
+        public event EventHandler ValueChanged;
+
         protected string _value = "";
         
         private string _command = "";
@@ -39,9 +51,17 @@ namespace Flowchart_Framework.View
 
         public virtual string Value
         {
-            get { return _value; }
-            set { _value = value; }
+            get 
+            { 
+                return _value; 
+            }
+            set 
+            {
+                ValueChanged?.Invoke(this, new ValueChangedEventArgs(value));
+                _value = value; 
+            }
         }
+
 
         public Editor()
         {

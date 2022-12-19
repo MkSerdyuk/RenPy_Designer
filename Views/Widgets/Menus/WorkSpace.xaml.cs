@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Flowchart_Framework.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace Ren_Py_Designer.Widgets.Menus
         public WorkSpace()
         {
             InitializeComponent();
+            PortManager.Canvas = Canvas;
         }
     }
 }
