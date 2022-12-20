@@ -36,6 +36,8 @@ namespace Flowchart_Framework.View
         public event EventHandler LinkedChanged;
         public event ValueEventHandler ValueChanged;
 
+        public Type ParentType = typeof(Block);
+
         private string _value;
 
         public virtual string Value
@@ -107,7 +109,7 @@ namespace Flowchart_Framework.View
             if (PortManager.From == null )
             {
                 PortManager.From = this;
-                ((Ellipse)PortManager.From.Grid.Children[0]).Fill = Brushes.Aqua;
+                ((Shape)PortManager.From.Grid.Children[0]).Fill = Brushes.Aqua;
             }
 
         }

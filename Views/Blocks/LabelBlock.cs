@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace Flowchart_Framework.View.Blocks
 {
@@ -22,6 +24,12 @@ namespace Flowchart_Framework.View.Blocks
         public LabelBlock()
         {
             InitializeComponent();
+
+            Width = 120;
+            In.Grid.Children.RemoveAt(0);
+            In.Grid.Children.Add(
+                new Rectangle { Height = 20, Width = 20, Stroke = new SolidColorBrush(Colors.Black), Fill = new SolidColorBrush(Colors.White) }
+                );
 
             Editor.SetValue(Grid.RowProperty, 3);
             In.SetValue(Grid.RowProperty, 1);
@@ -48,6 +56,8 @@ namespace Flowchart_Framework.View.Blocks
             Editor.Endl = ":\n";
 
             Editor.ValueChanged += LabelNameChanged;
+
+            In.ParentType = GetType();
         }
 
         private void LabelNameChanged(object sender, ValueChangedEventArgs e)

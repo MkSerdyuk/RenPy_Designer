@@ -26,6 +26,14 @@ namespace Flowchart_Framework.View
             }
         }
 
+        public string FullCommand
+        {
+            get
+            {
+                return _value + Command.Replace("{val}", _textBox.Text) + Endl;
+            }
+        }
+
         public TextEditor()
         {
             InitializeComponent();

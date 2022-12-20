@@ -1,4 +1,6 @@
-﻿using Ren_Py_Designer.Views;
+﻿using Flowchart_Framework.View.Blocks;
+using Ren_Py_Designer.Views;
+using Ren_Py_Designer.Views.Editors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +34,8 @@ namespace Flowchart_Framework.View
 
         public Block Parent;
 
+        public Type ParentType;
+
         public string ParentValue
         {
             get { return Parent.Value; }
@@ -62,13 +66,16 @@ namespace Flowchart_Framework.View
         private void Port_LeftMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (PortManager.From != null)
+            {
+                if (PortManager.From.ParentType == typeof(ReturnableEditor) && ParentType != typeof(LabelBlock))
+                {
+                    return;
+                }
                 if (PortManager.From.GetType() != typeof(MultyOutPort) && PortManager.From.Linked.Count >= 1)
-            {
-                return;
-            }
-            if (PortManager.From != null)
-            {
-                ((Ellipse)PortManager.From.Grid.Children[0]).Fill = Brushes.White;
+                {
+                    return;
+                }
+                ((Shape)PortManager.From.Grid.Children[0]).Fill = Brushes.White;
                 PortManager.To = this;
                 Connector connector = new Connector(PortManager.From, PortManager.To);
                 //Connector crunch = new Connector(PortManager.From, PortManager.To); //англ костыль

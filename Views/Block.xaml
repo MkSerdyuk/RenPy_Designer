@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Flowchart_Framework.View"
              mc:Ignorable="d" 
-             d:DesignHeight="67" d:DesignWidth="100" Background="#FF717070" 
+             d:DesignHeight="67" d:DesignWidth="150" Background="#FF717070" 
              MouseDoubleClick="UserControl_MouseDoubleClick" PreviewMouseMove="UserControl_PreviewMouseMove">
     <Grid x:Name="_mainGrid">
         <Grid.RowDefinitions>

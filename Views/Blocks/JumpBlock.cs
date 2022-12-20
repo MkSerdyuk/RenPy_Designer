@@ -1,4 +1,5 @@
 ﻿using Flowchart_Framework.View;
+using Ren_Py_Designer.Models;
 using Ren_Py_Designer.Views.Editors;
 using System;
 using System.Collections.Generic;
@@ -16,14 +17,22 @@ namespace Flowchart_Framework.View.Blocks
 
         private void TargetLabelChanged(object sender, ValueChangedEventArgs e)
         {
-
+            try
+            {
+                Value = e.Value;
+                int indexL = In.Value.IndexOf(" ") + 1;
+                int indexR = In.Value.IndexOf(":");
+                string labelName = In.Value.Substring(indexL, indexR - indexL);
+                Manager.Labels[labelName] = In.Value + Editor.FullCommand;
+            }
+            catch { }
         }
 
         public JumpBlock()
         {
             InitializeComponent();
-
-            Editor.SetValue(Grid.RowProperty, 3);
+            Width = 120;
+            Editor.SetValue(Grid.RowProperty, 2);
             In.SetValue(Grid.RowProperty, 1);
 
             Editor.SetValue(Grid.ColumnProperty, 0);
@@ -44,11 +53,19 @@ namespace Flowchart_Framework.View.Blocks
             MainGrid.Children.Add(Editor);
             MainGrid.Children.Add(label);
 
-            Editor.Command = "  jump {val}";
+            Editor.Command = "\tjump {val}";
             Editor.Endl = "\n";
 
             Editor.ValueChanged += TargetLabelChanged;
             
+        }
+
+        public override void InputChanged()
+        {
+            int indexL = In.Value.IndexOf(" ") + 1;
+            int indexR = In.Value.IndexOf(":");
+            string labelName = In.Value.Substring(indexL, indexR - indexL);
+            Manager.Labels[labelName] = In.Value + Editor.FullCommand;
         }
     }
 }
