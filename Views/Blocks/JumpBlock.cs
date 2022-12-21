@@ -24,6 +24,7 @@ namespace Flowchart_Framework.View.Blocks
                 int indexR = In.Value.IndexOf(":");
                 string labelName = In.Value.Substring(indexL, indexR - indexL);
                 Manager.Labels[labelName] = In.Value + Editor.FullCommand;
+                Manager.ReloadCode();
             }
             catch { }
         }
@@ -62,10 +63,15 @@ namespace Flowchart_Framework.View.Blocks
 
         public override void InputChanged()
         {
-            int indexL = In.Value.IndexOf(" ") + 1;
-            int indexR = In.Value.IndexOf(":");
-            string labelName = In.Value.Substring(indexL, indexR - indexL);
-            Manager.Labels[labelName] = In.Value + Editor.FullCommand;
+            try
+            {
+                int indexL = In.Value.IndexOf(" ") + 1;
+                int indexR = In.Value.IndexOf(":");
+                string labelName = In.Value.Substring(indexL, indexR - indexL);
+                Manager.Labels[labelName] = In.Value + Editor.FullCommand;
+                Manager.ReloadCode();
+            }
+            catch { }
         }
     }
 }

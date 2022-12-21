@@ -32,18 +32,23 @@ namespace Ren_Py_Designer.Views.Blocks
 
         private void ReloadCode()
         {
-            int indexL = In.Value.IndexOf(" ") + 1;
-            int indexR = In.Value.IndexOf(":");
-            string labelName = In.Value.Substring(indexL, indexR - indexL);
-
-            string result = In.Value;
-
-            foreach (string command in Commands)
+            try
             {
-                result += command;
-            }
+                int indexL = In.Value.IndexOf(" ") + 1;
+                int indexR = In.Value.IndexOf(":");
+                string labelName = In.Value.Substring(indexL, indexR - indexL);
 
-            Manager.Labels[labelName] = result;
+                string result = In.Value;
+
+                foreach (string command in Commands)
+                {
+                    result += command;
+                }
+
+                Manager.Labels[labelName] = result;
+                Manager.ReloadCode();
+            }
+            catch { }
         }
 
         public void AddCondition(object sender, RoutedEventArgs e)
@@ -107,10 +112,11 @@ namespace Ren_Py_Designer.Views.Blocks
         {
             try
             {
-                int indexL = In.Value.IndexOf(" ");
+                int indexL = In.Value.IndexOf(" ") + 1;
                 int indexR = In.Value.IndexOf(":");
                 string labelName = In.Value.Substring(indexL, indexR - indexL);
                 Manager.Labels[labelName] = In.Value + "  jump " + Value;
+                Manager.ReloadCode();
             }
             catch { }
         }

@@ -20,8 +20,8 @@ namespace Flowchart_Framework.View
             get { return _value; }
             set 
             {
+                _value = value;
                 ValueChanged?.Invoke(this, new ValueChangedEventArgs(_textBox.Text));
-                _value = value; 
                 Out.Value = value + Command.Replace("{val}", _textBox.Text) + Endl;
             }
         }
@@ -30,7 +30,7 @@ namespace Flowchart_Framework.View
         {
             get
             {
-                return _value + Command.Replace("{val}", _textBox.Text) + Endl;
+                return Command.Replace("{val}", _textBox.Text) + Endl;
             }
         }
 

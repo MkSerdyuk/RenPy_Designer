@@ -12,5 +12,8 @@ namespace Flowchart_Framework.View
         public static InPort To;
         public static OutPort From;
         public static Canvas Canvas;
+        public static ListView NodeList;
+
+        public static Type SelectedType;
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using Ren_Py_Designer.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,30 @@ namespace Ren_Py_Designer
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            if (Manager.Path != "")
+            {
+                Manager.Save(Manager.Path);
+            }
+        }        
+        
+        private void Open_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.ShowDialog();
+            Manager.Path = openFileDialog.FileName;
+        }
+
+        private void SaveProj_Click(object sender, RoutedEventArgs e)
+        {
+            if (Manager.Path != "")
+            {
+
+                Manager.Save(Manager.Path);
+            }
         }
     }
 }

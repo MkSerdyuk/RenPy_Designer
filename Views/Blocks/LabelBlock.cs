@@ -62,6 +62,8 @@ namespace Flowchart_Framework.View.Blocks
 
         private void LabelNameChanged(object sender, ValueChangedEventArgs e)
         {
+            Value = Value.Trim();
+            e = new ValueChangedEventArgs(e.Value.Trim());
             if (Manager.Labels.ContainsKey(Value))
             {
                 Manager.Labels.Remove(Value);

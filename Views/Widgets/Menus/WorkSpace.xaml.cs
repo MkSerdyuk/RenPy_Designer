@@ -1,4 +1,5 @@
 ﻿using Flowchart_Framework.View;
+using Ren_Py_Designer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -25,6 +25,19 @@ namespace Ren_Py_Designer.Widgets.Menus
         {
             InitializeComponent();
             PortManager.Canvas = Canvas;
+        }
+
+        private void Canvas_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (PortManager.SelectedType != null)
+            {
+                Block newBlock = ((Block)Activator.CreateInstance(PortManager.SelectedType));
+                Canvas.Children.Add(newBlock);
+                Canvas.SetLeft(newBlock, e.GetPosition(Canvas).X);
+                Canvas.SetTop(newBlock, e.GetPosition(Canvas).Y);
+                PortManager.SelectedType = null;
+                PortManager.NodeList.SelectedItem = null;
+            }
         }
     }
 }

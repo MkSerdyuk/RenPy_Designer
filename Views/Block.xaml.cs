@@ -62,14 +62,7 @@ namespace Flowchart_Framework.View
 
         private void UserControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (_state == "static")
-            {
-                _state = "active";
-            }
-            else
-            {
-                _state = "static";
-            }
+            _state = "active";
         }
 
         private void UserControl_PreviewMouseMove(object sender, MouseEventArgs e)
@@ -78,8 +71,28 @@ namespace Flowchart_Framework.View
             {
                 var position = e.GetPosition(PortManager.Canvas);
                 Canvas.SetLeft(this, position.X - 50);
-                Canvas.SetTop(this, position.Y - 15);
+                Canvas.SetTop(this, position.Y - 20);
+
+                if (position.X > PortManager.Canvas.Width - 100)
+                {
+                    PortManager.Canvas.Width = position.X + 100;
+                } 
+                if (position.Y > PortManager.Canvas.Height - 100)
+                {
+                    PortManager.Canvas.Height = position.Y + 100;
+                }
+
             }
+        }
+
+        private void UserControl_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            _state = "static";
+        }
+
+        public virtual void Parse(string str)
+        {
+            
         }
     }
 }

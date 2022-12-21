@@ -20,16 +20,11 @@
 
         <Menu Height="50" VerticalAlignment="Top" Grid.Row="0" Grid.ColumnSpan="3">
             <MenuItem Header="File" Foreground="White">
-                <MenuItem Header="New Project" Foreground="White"></MenuItem>
-                <MenuItem Header="Open Project" Foreground="White">
-                    <MenuItem Header="WinForms" Foreground="White"></MenuItem>
-                    <MenuItem Header="WPF" Foreground="White"></MenuItem>
-                </MenuItem>
-                <Separator />
-                <MenuItem Header="Exit" Foreground="White"></MenuItem>
+                <MenuItem Header="Open Project" Foreground="White" Click="Open_Click"></MenuItem>
+                <MenuItem Header="Save Project" Foreground="White" Click="SaveProj_Click"/>
+                <MenuItem Header="Save" Foreground="White" Click="Save_Click"></MenuItem>
             </MenuItem>
-            <MenuItem Header="Edit" Foreground="White"></MenuItem>
-            <MenuItem Header="View" Foreground="White" ></MenuItem>
+            <MenuItem Header="Help" Foreground="White"></MenuItem>
         </Menu>
 
         <GridSplitter Grid.Column="1"  Grid.Row="1" ShowsPreview="False" Width="3"

@@ -22,8 +22,8 @@ namespace Ren_Py_Designer.Views.Editors
 
         private void PortValueChanged(object sender, ValueChangedEventArgs e)
         {
-            ValueChanged?.Invoke(this, e);
             Value = e.Value;
+            ValueChanged?.Invoke(this, e);
         }
 
         public ReturnableEditor() : base()
@@ -49,12 +49,12 @@ namespace Ren_Py_Designer.Views.Editors
                 {
                     string command = Command;
                     int i = command.IndexOf("{val}");
-                    string result = command.Remove(i, 5).Insert(i, LabelBox.Text);
+                    command = command.Remove(i, 5).Insert(i, LabelBox.Text);
                     i = command.IndexOf("{val}");
-                    command.Remove(i, 5).Insert(i, Value);
-                    return _value + command + Endl;
+                    command = command.Remove(i, 5).Insert(i, Value);
+                    return command + Endl;
                 }
-                return _value + Command.Replace("{val}", Value) + Endl;
+                return Command.Replace("{val}", Value) + Endl;
             }
         }
     }
