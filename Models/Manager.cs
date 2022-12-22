@@ -30,7 +30,7 @@ namespace Ren_Py_Designer.Models
             {
                 foreach (string label in Labels.Values)
                 {
-                    writer.Write(label);
+                    writer.Write(label.Replace("\t", "    "));
                 }
                 writer.Close();
             }
@@ -41,12 +41,13 @@ namespace Ren_Py_Designer.Models
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.ShowDialog();
             string path = saveFileDialog.FileName;
+            Path = path;
             if (path != "")
                 using (StreamWriter writer = new StreamWriter(path))
                 {
                     foreach (string label in Labels.Values)
                     {
-                        writer.Write(label);
+                        writer.Write(label.Replace("\t", "    "));
                     }
                     writer.Close();
                 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using Ren_Py_Designer.Models;
+using Ren_Py_Designer.Widgets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,11 @@ namespace Ren_Py_Designer
         public MainWindow()
         {
             InitializeComponent();
+
+            //базовые параметры
+            ((MenuBox)WorkspaceLeft.Children[1]).MenuChooser.SelectedIndex = 0;
+            ((MenuBox)WorkspaceRight.Children[1]).MenuChooser.SelectedIndex = 2;
+            ((MenuBox)WorkspaceRight.Children[2]).MenuChooser.SelectedIndex = 1;
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
