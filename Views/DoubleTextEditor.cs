@@ -19,11 +19,19 @@ namespace Flowchart_Framework.View
             set
             {
                 _value = value;
-                var regex = new Regex(Regex.Escape("{val}"));
-                string temp = regex.Replace(Command, _textBox1.Text, 1);
-                temp = regex.Replace(temp, _textBox2.Text, 1);
-                Out.Value = value + temp + Endl ;
+                string command = Command;
+                int i = command.IndexOf("{val}");
+                command = command.Remove(i, 5).Insert(i, _textBox1.Text);
+                i = command.IndexOf("{val}");
+                command = command.Remove(i, 5).Insert(i, _textBox2.Text);
+                Out.Value = _value + command + Endl;
             }
+        }
+
+        public void SetText(string val1, string val2)
+        {
+            _textBox1.Text = val1;
+            _textBox2.Text = val2;
         }
 
         public DoubleTextEditor()
@@ -32,11 +40,11 @@ namespace Flowchart_Framework.View
 
             _textBox1.TextWrapping = System.Windows.TextWrapping.Wrap;
             _textBox2.TextWrapping = System.Windows.TextWrapping.Wrap;
-            Height = 60;
+            Height = 100;
             MainGrid.RowDefinitions.Add(new RowDefinition());
             MainGrid.RowDefinitions.Add(new RowDefinition());
-            MainGrid.RowDefinitions[1].Height = new System.Windows.GridLength(38);
-            MainGrid.RowDefinitions[0].Height = new System.Windows.GridLength(22);
+            MainGrid.RowDefinitions[1].Height = new System.Windows.GridLength(40);
+            MainGrid.RowDefinitions[0].Height = new System.Windows.GridLength(40);
             _textBox1.TextChanged += TextChanged;
             _textBox2.TextChanged += TextChanged;
             _textBox1.SetValue(Grid.ColumnProperty, 0);

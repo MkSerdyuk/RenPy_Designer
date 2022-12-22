@@ -94,5 +94,10 @@ namespace Flowchart_Framework.View
         {
             
         }
+
+        public virtual bool StrContinues(string str) //является ли строка продолжением блока
+        {
+            return false;
+        }
     }
 }

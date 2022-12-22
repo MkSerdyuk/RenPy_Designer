@@ -80,23 +80,161 @@ namespace Ren_Py_Designer.Models
             using (StreamReader reader = new StreamReader(path))
             {
                 string line = "";
-                while ((line = reader.ReadLine()) != null)
+                line = reader.ReadLine();
+                if (line == null)
                 {
+                    return;
+                }
+                while (true)
+                {
+
+
                     int ind = line.IndexOf(' ');
                     try
                     {
                         Type type = null;
                         if (ind != -1)
                         {
-                            type = ComToBlock[line.Substring(0, ind)];
+                            if (ComToBlock.ContainsKey(line.Substring(0, ind)))
+                            {
+                                type = ComToBlock[line.Substring(0, ind)];
+                            }
+                            else
+                            {
+                                type = typeof(DialogBlock);
+                            }
                         }
                         else
                         {
-                            type = ComToBlock[line];
+                            if (ComToBlock.ContainsKey(line))
+                            {
+                                type = ComToBlock[line];
+                            }
+                            else
+                            {
+                                type = typeof(DialogBlock);
+                            }
                         }
-                        
-                        if (!(type == typeof(LabelBlock) && LabelBlocks.ContainsKey(line.Substring(line.IndexOf(" ") + 1, line.IndexOf(":") - line.IndexOf(" ") - 1))))
+
+                        if (type == typeof(LabelBlock))
                         {
+                            if (!LabelBlocks.ContainsKey(line.Substring(line.IndexOf(" ") + 1, line.IndexOf(":") - line.IndexOf(" ") - 1)))
+                            {
+                                Block newBlock = ((Block)Activator.CreateInstance(type));
+                                newBlock.Parse(bl, line);
+                                bl = newBlock;
+                                PortManager.Canvas.Children.Add(newBlock);
+                                Canvas.SetTop(newBlock, 10);
+                                Canvas.SetLeft(newBlock, i * 150);
+                            }
+                            else
+                            {
+                                LabelBlock newLabel = LabelBlocks[line.Substring(line.IndexOf(" ") + 1, line.IndexOf(":") - line.IndexOf(" ") - 1)];
+                                bl = newLabel;
+                                PortManager.Canvas.Children.Add(newLabel);
+                                Canvas.SetTop(newLabel, 10);
+                                Canvas.SetLeft(newLabel, i * 150);
+                            }
+
+                            i++;
+                            line = reader.ReadLine();
+
+                            if (line == null)
+                            {
+                                break;
+                            }
+
+                            continue;
+                        }
+
+                        #region Old
+
+                        /*
+                        if (type == typeof(IfBlock))
+                        {
+                            int notCondCounter = 0;
+                            string ifLine = line + "\n";
+                            while (notCondCounter != 2)
+                            {
+                                if ((line = reader.ReadLine()).Contains("if"))
+                                {
+                                    notCondCounter = 0;
+                                }
+                                else
+                                {
+                                    notCondCounter++;
+                                    if (notCondCounter == 2)
+                                    {
+                                        break;
+                                    }
+                                }
+                                ifLine += line + "\n";
+                            }
+                            Block newBlock = ((Block)Activator.CreateInstance(typeof(IfBlock)));
+                            newBlock.Parse(bl, ifLine);
+                            bl = newBlock;
+                            PortManager.Canvas.Children.Add(newBlock);
+                            Canvas.SetTop(newBlock, 10);
+                            Canvas.SetLeft(newBlock, i * 150);
+                            i++;
+
+                            ind = line.IndexOf(' ');
+                            if (ind != -1)
+                            {
+                                type = ComToBlock[line.Substring(0, ind)];
+                            }
+                            else
+                            {
+                                type = ComToBlock[line];
+                            }
+                        }
+                        */
+
+                        #endregion
+                        #region New Parser
+                        int tabCount = line.Count(f => f == '\t');
+                        string newLine = line;
+                        try
+                        {
+                            while ((line = reader.ReadLine()).Count(f => f == '\t') > tabCount || ((Block)Activator.CreateInstance(type)).StrContinues(line))
+                            {
+                                newLine += "\n";
+                                newLine += line;
+                            }
+
+                            Block newBlock = ((Block)Activator.CreateInstance(type));
+                            newBlock.Parse(bl, newLine);
+                            bl = newBlock;
+                            PortManager.Canvas.Children.Add(newBlock);
+                            Canvas.SetTop(newBlock, 10);
+                            Canvas.SetLeft(newBlock, i * 150);
+
+                            if (line == null)
+                            {
+                                break;
+                            }
+
+                            i++;
+
+                        }
+                        catch (ArgumentNullException e)
+                        {
+                            Block newBlock = ((Block)Activator.CreateInstance(type));
+                            newBlock.Parse(bl, newLine);
+                            bl = newBlock;
+                            PortManager.Canvas.Children.Add(newBlock);
+                            Canvas.SetTop(newBlock, 10);
+                            Canvas.SetLeft(newBlock, i * 150);
+                            i++;
+                            break;
+                        }
+                        catch { }
+                        #endregion
+
+                        #region Old Crunch
+                        /*if (!(type == typeof(LabelBlock) && LabelBlocks.ContainsKey(line.Substring(line.IndexOf(" ") + 1, line.IndexOf(":") - line.IndexOf(" ") - 1))))
+                        {
+
                             Block newBlock = ((Block)Activator.CreateInstance(type));
                             newBlock.Parse(bl, line);
                             bl = newBlock;
@@ -114,10 +252,11 @@ namespace Ren_Py_Designer.Models
 
                         }
                         //PortManager.Canvas.Children.Add(new LabelBlock());
+                        */
+                        #endregion
 
                     }
                     catch { }
-                    i++;
                 }
             }
             
@@ -135,7 +274,10 @@ namespace Ren_Py_Designer.Models
            {"label", typeof(LabelBlock) },
            {"\tjump", typeof(JumpBlock) },
            {"\treturn", typeof(ReturnBlock) },
-           {"\tif", typeof(IfBlock) }
+           {"\tmenu:", typeof(MenuBlock) },
+           {"\tif", typeof(IfBlock) },
+           {"\tshow", typeof(ShowBlock) },
+           {"\tdefine", typeof(CharacterBlock) }
         };
     }
 }

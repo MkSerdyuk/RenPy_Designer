@@ -11,6 +11,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Frame x:Name="Content"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" NavigationUIVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
-        <ComboBox x:Name="MenuChooser"  HorizontalAlignment="Left" Width="100" SelectionChanged="ComboBox_SelectionChanged"/>
+        <ComboBox x:Name="MenuChooser"  HorizontalAlignment="Left" Width="387" SelectionChanged="ComboBox_SelectionChanged" Padding="4,4,4,4" Margin="3,3,0,0" VerticalAlignment="Top"/>
     </Grid>
 </UserControl>

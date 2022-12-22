@@ -33,7 +33,11 @@ namespace Ren_Py_Designer.Widgets.Menus
             AddLabel(new  LabelBlock());
             AddLabel(new  JumpBlock());
             AddLabel(new  IfBlock());
+            AddLabel(new  MenuBlock());
             AddLabel(new  ReturnBlock());
+            AddLabel(new  DialogBlock());
+            AddLabel(new  ShowBlock());
+            AddLabel(new  CharacterBlock());
             Blocks.SelectedItem = null;
         }
 

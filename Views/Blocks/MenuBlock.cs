@@ -12,7 +12,7 @@ using System.Windows.Controls;
 
 namespace Ren_Py_Designer.Views.Blocks
 {
-    public class IfBlock : Block
+    public class MenuBlock : Block
     {
         public InPort In = new InPort();
         public List<ReturnableEditor> Editors = new List<ReturnableEditor>();
@@ -68,11 +68,11 @@ namespace Ren_Py_Designer.Views.Blocks
 
             if (index == 0)
             {
-                Editors[index].Command = "\tif {val}:\n\t\tjump {val}";
+                Editors[index].Command = "\tmenu:\n\t\t{val}:\n\t\t\tjump {val}";
             }
             else
             {
-                Editors[index].Command = "\telif {val}:\n\t\tjump {val}";
+                Editors[index].Command = "\t\t{val}:\n\t\t\tjump {val}";
             }
             Editors[index].Endl = "\n";
 
@@ -81,7 +81,7 @@ namespace Ren_Py_Designer.Views.Blocks
             MainGrid.Children.Add(Editors[index]);
         }
 
-        public IfBlock()
+        public MenuBlock()
         {
             InitializeComponent();
             Width = 120;
@@ -98,7 +98,7 @@ namespace Ren_Py_Designer.Views.Blocks
 
             Label label = new Label();
 
-            label.Content = "If";
+            label.Content = "Menu";
             label.SetValue(Grid.RowProperty, 0);
             label.SetValue(Grid.ColumnProperty, 0);
             label.SetValue(Grid.ColumnSpanProperty, 3);
@@ -108,8 +108,8 @@ namespace Ren_Py_Designer.Views.Blocks
             MainGrid.Children.Add(NewCondition);
 
         }
-        
-        public IfBlock(Block bl, string str)
+
+        public MenuBlock(Block bl, string str)
         {
             InitializeComponent();
             Width = 120;
@@ -162,11 +162,11 @@ namespace Ren_Py_Designer.Views.Blocks
             }
             //str = str[0..^1]; // последний символ - новая строка, его убираем
             var lines = str.Split("\n");
-            for (int i = 0; i < lines.Length; i+=2)
+            for (int i = 1; i < lines.Length; i += 2)
             {
-                string conditon = lines[i][lines[i].IndexOf(" ") .. ^1];
-                int indexL = lines[i+1].IndexOf(" ") + 1;
-                string labelName = lines[i+1].Substring(indexL);
+                string conditon = lines[i][0..^1];
+                int indexL = lines[i + 1].IndexOf(" ") + 1;
+                string labelName = lines[i + 1].Substring(indexL);
                 if (!Manager.Labels.ContainsKey(labelName))
                 {
                     LabelBlock labelBlock = new LabelBlock(null, "label " + labelName + ":\n");
@@ -174,14 +174,9 @@ namespace Ren_Py_Designer.Views.Blocks
 
                 AddCondition(null, null);
 
-                Editors[i / 2].SetText(conditon);
+                Editors[i / 2].SetText(conditon.Trim());
                 Editors[i / 2].Out.Link(Manager.LabelBlocks[labelName].In);
             }
-        }
-
-        public override bool StrContinues(string str)
-        {
-            return str.Contains("elif");
         }
     }
 }
