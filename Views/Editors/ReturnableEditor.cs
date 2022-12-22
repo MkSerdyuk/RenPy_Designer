@@ -39,6 +39,8 @@ namespace Ren_Py_Designer.Views.Editors
             LabelBox.SetValue(Grid.ColumnProperty, 0);
             LabelBox.Visibility = System.Windows.Visibility.Hidden;
             MainGrid.Children.Add(LabelBox);
+
+            
         }
 
         public string FullCommand

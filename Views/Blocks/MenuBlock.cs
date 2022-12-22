@@ -68,11 +68,11 @@ namespace Ren_Py_Designer.Views.Blocks
 
             if (index == 0)
             {
-                Editors[index].Command = "\tmenu:\n\t\t{val}:\n\t\t\tjump {val}";
+                Editors[index].Command = "\tmenu:\n\t\t\"{val}\":\n\t\t\tjump {val}";
             }
             else
             {
-                Editors[index].Command = "\t\t{val}:\n\t\t\tjump {val}";
+                Editors[index].Command = "\t\t\"{val}\":\n\t\t\tjump {val}";
             }
             Editors[index].Endl = "\n";
 
