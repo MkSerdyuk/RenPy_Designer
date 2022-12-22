@@ -123,5 +123,10 @@ namespace Flowchart_Framework.View
             
             Grid.Children.RemoveRange(1, Grid.Children.Count-1);
         }
+
+        public void Link(InPort port)
+        {
+            port.Link(this);
+        }
     }
 }

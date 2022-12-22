@@ -57,5 +57,10 @@ namespace Ren_Py_Designer.Views.Editors
                 return Command.Replace("{val}", Value) + Endl;
             }
         }
+
+        public void SetText(string text)
+        {
+            LabelBox.Text = text;
+        }
     }
 }

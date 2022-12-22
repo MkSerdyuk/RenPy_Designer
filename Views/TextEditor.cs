@@ -48,5 +48,10 @@ namespace Flowchart_Framework.View
         {
             Value = _value;
         }
+
+        public void SetText(string text)
+        {
+            _textBox.Text = text;
+        }
     }
 }

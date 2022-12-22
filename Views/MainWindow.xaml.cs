@@ -40,15 +40,12 @@ namespace Ren_Py_Designer
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.ShowDialog();
             Manager.Path = openFileDialog.FileName;
+            Manager.OpenBlocks(Manager.Path);
         }
 
         private void SaveProj_Click(object sender, RoutedEventArgs e)
         {
-            if (Manager.Path != "")
-            {
-
-                Manager.Save(Manager.Path);
-            }
+            Manager.Save_As();
         }
     }
 }

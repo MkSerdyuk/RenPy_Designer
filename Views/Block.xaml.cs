@@ -29,7 +29,7 @@ namespace Flowchart_Framework.View
         public Block()
         {
             InitializeComponent();
-        }
+        }        
 
         public Canvas Parent;
 
@@ -90,7 +90,7 @@ namespace Flowchart_Framework.View
             _state = "static";
         }
 
-        public virtual void Parse(string str)
+        public virtual void Parse(Block bl, string str)
         {
             
         }

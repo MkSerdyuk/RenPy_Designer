@@ -100,6 +100,27 @@ namespace Flowchart_Framework.View
 
         }
 
+        public void Link(OutPort port)
+        {
+            ((Shape)port.Grid.Children[0]).Fill = Brushes.White;
+            Connector connector = new Connector(port, this);
+            //Connector crunch = new Connector(PortManager.From, PortManager.To); //англ костыль
+            _source = port;
+            //PortManager.From.Grid.Children.Add(crunch);
+            List<InPort> newList = port.Linked.ToList();
+            newList.Add(this);
+            port.Linked = newList;
+
+            Linked.Add(port);
+            Value = port.Value;
+            PortManager.Canvas.Children.Add(connector);
+            _connectors.Add(connector);
+            connector.RedrawLine(null, null);
+
+            Parent.InputChanged();
+            (Linked[Linked.Count - 1]).UpdateOut();
+        }
+
         private void Grid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             Value = "";

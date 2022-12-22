@@ -1,4 +1,5 @@
 ﻿using Flowchart_Framework.View;
+using Flowchart_Framework.View.Blocks;
 using Ren_Py_Designer.Models;
 using Ren_Py_Designer.Views.Editors;
 using System;
@@ -107,6 +108,34 @@ namespace Ren_Py_Designer.Views.Blocks
             MainGrid.Children.Add(NewCondition);
 
         }
+        
+        public IfBlock(Block bl, string str)
+        {
+            InitializeComponent();
+            Width = 120;
+            NewCondition.SetValue(Grid.RowProperty, 2);
+            NewCondition.SetValue(Grid.ColumnProperty, 0);
+            NewCondition.SetValue(Grid.ColumnSpanProperty, 3);
+            NewCondition.Content = "New Condition";
+            NewCondition.Click += AddCondition;
+
+            In.SetValue(Grid.RowProperty, 1);
+            In.SetValue(Grid.ColumnProperty, 0);
+
+            In.Parent = this;
+
+            Label label = new Label();
+
+            label.Content = "If";
+            label.SetValue(Grid.RowProperty, 0);
+            label.SetValue(Grid.ColumnProperty, 0);
+            label.SetValue(Grid.ColumnSpanProperty, 3);
+
+            MainGrid.Children.Add(In);
+            MainGrid.Children.Add(label);
+            MainGrid.Children.Add(NewCondition);
+            Parse(bl, str);
+        }
 
         public override void InputChanged()
         {
@@ -119,6 +148,35 @@ namespace Ren_Py_Designer.Views.Blocks
                 Manager.ReloadCode();
             }
             catch { }
+        }
+
+        public override void Parse(Block bl, string str)
+        {
+            if (bl.GetType() == typeof(LabelBlock))
+            {
+                ((LabelBlock)bl).Editor.Out.Link(In);
+            }
+            else
+            {
+                ((SingleBlock)bl).Editor.Out.Link(In);
+            }
+            str = str[0..^1]; // последний символ - новая строка, его убираем
+            var lines = str.Split("\n");
+            for (int i = 0; i < lines.Length; i+=2)
+            {
+                string conditon = lines[i].Substring(lines[i].IndexOf(" "));
+                int indexL = lines[i+1].IndexOf(" ") + 1;
+                string labelName = lines[i+1].Substring(indexL);
+                if (!Manager.Labels.ContainsKey(labelName))
+                {
+                    LabelBlock labelBlock = new LabelBlock(null, "label " + labelName + ":\n");
+                }
+
+                AddCondition(null, null);
+
+                Editors[i / 2].SetText(conditon);
+                Editors[i / 2].Out.Link(Manager.LabelBlocks[labelName].In);
+            }
         }
     }
 }
