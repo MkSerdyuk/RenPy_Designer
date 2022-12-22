@@ -152,6 +152,7 @@ namespace Ren_Py_Designer.Views.Blocks
 
         public override void Parse(Block bl, string str)
         {
+            str = str.Replace("\"", "");
             if (bl.GetType() == typeof(LabelBlock))
             {
                 ((LabelBlock)bl).Editor.Out.Link(In);

@@ -86,6 +86,7 @@ namespace Ren_Py_Designer.Models
                 {
                     return;
                 }
+                line = line.Replace("    ", "\t");
                 while (true)
                 {
 
@@ -122,7 +123,7 @@ namespace Ren_Py_Designer.Models
                             if (!LabelBlocks.ContainsKey(line.Substring(line.IndexOf(" ") + 1, line.IndexOf(":") - line.IndexOf(" ") - 1)))
                             {
                                 Block newBlock = ((Block)Activator.CreateInstance(type));
-                                newBlock.Parse(bl, line);
+                                newBlock.Parse(bl, line.Replace("    ", "\t"));
                                 bl = newBlock;
                                 PortManager.Canvas.Children.Add(newBlock);
                                 Canvas.SetTop(newBlock, 10);
@@ -144,6 +145,8 @@ namespace Ren_Py_Designer.Models
                             {
                                 break;
                             }
+
+                            line = line.Replace("    ", "\t");
 
                             continue;
                         }
@@ -196,24 +199,29 @@ namespace Ren_Py_Designer.Models
                         int tabCount = line.Count(f => f == '\t');
                         string newLine = line;
                         try
-                        {
-                            while ((line = reader.ReadLine()).Count(f => f == '\t') > tabCount || ((Block)Activator.CreateInstance(type)).StrContinues(line))
+                        { 
+                            while (true)//(line = reader.ReadLine()).Count(f => f == '\t') > tabCount || ((Block)Activator.CreateInstance(type)).StrContinues(line))
                             {
+                                line = reader.ReadLine();
+                                if (line == null)
+                                {
+                                    throw new ArgumentNullException();
+                                }
+                                line = line.Replace("    ", "\t");
+                                if (!(line.Count(f => f == '\t') > tabCount || ((Block)Activator.CreateInstance(type)).StrContinues(line)))
+                                {
+                                    break;
+                                }
                                 newLine += "\n";
                                 newLine += line;
                             }
 
                             Block newBlock = ((Block)Activator.CreateInstance(type));
-                            newBlock.Parse(bl, newLine);
+                            newBlock.Parse(bl, newLine.Replace("    ", "\t"));
                             bl = newBlock;
                             PortManager.Canvas.Children.Add(newBlock);
                             Canvas.SetTop(newBlock, 10);
                             Canvas.SetLeft(newBlock, i * 150);
-
-                            if (line == null)
-                            {
-                                break;
-                            }
 
                             i++;
 
@@ -221,7 +229,7 @@ namespace Ren_Py_Designer.Models
                         catch (ArgumentNullException e)
                         {
                             Block newBlock = ((Block)Activator.CreateInstance(type));
-                            newBlock.Parse(bl, newLine);
+                            newBlock.Parse(bl, newLine.Replace("    ", "\t"));
                             bl = newBlock;
                             PortManager.Canvas.Children.Add(newBlock);
                             Canvas.SetTop(newBlock, 10);
@@ -256,6 +264,16 @@ namespace Ren_Py_Designer.Models
                         */
                         #endregion
 
+
+                        if (i * 150 > PortManager.Canvas.Width)
+                        {
+                            PortManager.Canvas.Width = (i + 1) * 150;
+                        }
+
+                        if (line == null)
+                        {
+                            break;
+                        }
                     }
                     catch { }
                 }

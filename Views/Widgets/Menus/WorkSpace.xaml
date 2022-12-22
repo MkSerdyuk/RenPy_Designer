@@ -8,11 +8,11 @@
       xmlns:Blocks="clr-namespace:Ren_Py_Designer.Views.Blocks" x:Class="Ren_Py_Designer.Widgets.Menus.WorkSpace"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="WorkSpace">
-    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible" CanContentScroll="True" >
-        <Canvas x:Name="Canvas" Width="1000" Height="500" MouseDown="Canvas_MouseDown" >
+      Title="WorkSpace" KeyDown="Canvas_KeyDown">
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible" CanContentScroll="True">
+        <Canvas x:Name="Canvas" Width="1000" Height="500" MouseDown="Canvas_MouseDown" KeyDown="Canvas_KeyDown">
             <!--Canvas.RenderTransform>
-                <ScaleTransform ScaleX="3" ScaleY="3" CenterX="0" CenterY="0"></ScaleTransform>
+                <ScaleTransform ScaleX="1" ScaleY="1" CenterX="0" CenterY="0"></ScaleTransform>
             </Canvas.RenderTransform-->
             <Canvas.Background>
                 <DrawingBrush TileMode="Tile" Viewport="0,0,96,96" ViewportUnits="Absolute" Viewbox="0,0,96,96" ViewboxUnits="Absolute">

@@ -39,5 +39,30 @@ namespace Ren_Py_Designer.Widgets.Menus
                 PortManager.NodeList.SelectedItem = null;
             }
         }
+
+        private void ReSacle(float val)
+        {
+            if (val > 1)
+            {
+                Canvas.Width *= val;
+                Canvas.Height *= val;
+            }
+            ScaleTransform scale = new ScaleTransform(Canvas.LayoutTransform.Value.M11 * val, Canvas.LayoutTransform.Value.M22 * val);
+            Canvas.LayoutTransform = scale;
+            Canvas.UpdateLayout();
+        }
+
+        private void Canvas_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.OemPlus)
+            {
+                ReSacle(1.1f);
+            }
+            else if (e.Key == Key.OemMinus)
+            {
+                ReSacle(0.9f);
+            }
+
+        }
     }
 }
