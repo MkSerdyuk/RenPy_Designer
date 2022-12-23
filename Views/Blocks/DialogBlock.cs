@@ -16,7 +16,7 @@ namespace Ren_Py_Designer.Views.Blocks
         {
             InitializeComponent();
 
-            Width = 250;
+            //Width = 250;
 
             Editor = new DoubleTextEditor();
 
