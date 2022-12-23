@@ -19,6 +19,7 @@ namespace Ren_Py_Designer.Models
     {
         public static Dictionary<string, string> Labels = new Dictionary<string, string>();
         public static Dictionary<string, LabelBlock> LabelBlocks = new Dictionary<string, LabelBlock>();
+        //public static Dictionary<Block, Page> BlockPages = new Dictionary<Block, Page>();
 
         public static string Path = "";
 
@@ -296,6 +297,7 @@ namespace Ren_Py_Designer.Models
            {"\tmenu:", typeof(MenuBlock) },
            {"\tif", typeof(IfBlock) },
            {"\tshow", typeof(ShowBlock) },
+           {"\tpython:", typeof(PythonBlock) },
            {"\tdefine", typeof(CharacterBlock) }
         };
     }

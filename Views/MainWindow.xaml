@@ -37,8 +37,8 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <GridSplitter Grid.Row="1" Grid.ColumnSpan="3" Height="3"
-                HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="Black" />
+            <!--GridSplitter Grid.Row="1" Grid.ColumnSpan="3" Height="3"
+                HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="Black" /-->
 
             <widgets:MenuBox Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="3" />
         </Grid>

@@ -28,7 +28,7 @@ namespace Ren_Py_Designer
             InitializeComponent();
 
             //базовые параметры
-            ((MenuBox)WorkspaceLeft.Children[1]).MenuChooser.SelectedIndex = 0;
+            ((MenuBox)WorkspaceLeft.Children[0]).MenuChooser.SelectedIndex = 0;
             ((MenuBox)WorkspaceRight.Children[1]).MenuChooser.SelectedIndex = 2;
             ((MenuBox)WorkspaceRight.Children[2]).MenuChooser.SelectedIndex = 1;
         }

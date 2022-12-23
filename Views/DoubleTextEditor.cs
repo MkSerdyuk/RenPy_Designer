@@ -43,8 +43,8 @@ namespace Flowchart_Framework.View
             Height = 100;
             MainGrid.RowDefinitions.Add(new RowDefinition());
             MainGrid.RowDefinitions.Add(new RowDefinition());
-            MainGrid.RowDefinitions[1].Height = new System.Windows.GridLength(40);
-            MainGrid.RowDefinitions[0].Height = new System.Windows.GridLength(40);
+            //MainGrid.RowDefinitions[1].Height = new System.Windows.GridLength(40);
+            //MainGrid.RowDefinitions[0].Height = new System.Windows.GridLength(40);
             _textBox1.TextChanged += TextChanged;
             _textBox2.TextChanged += TextChanged;
             _textBox1.SetValue(Grid.ColumnProperty, 0);
