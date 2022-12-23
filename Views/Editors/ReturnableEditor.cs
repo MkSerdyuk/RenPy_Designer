@@ -40,7 +40,12 @@ namespace Ren_Py_Designer.Views.Editors
             LabelBox.Visibility = System.Windows.Visibility.Hidden;
             MainGrid.Children.Add(LabelBox);
 
-            
+            LabelBox.TextChanged += LabelBox_TextChanged;
+        }
+
+        private void LabelBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValueChanged?.Invoke(this, new ValueChangedEventArgs(Value));
         }
 
         public string FullCommand

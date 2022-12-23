@@ -23,6 +23,8 @@ namespace Ren_Py_Designer.Models
 
         public static string Path = "";
 
+        public static Block Selected;
+
         public static Block Last = null;
 
         public static void Save(string path)
@@ -43,15 +45,7 @@ namespace Ren_Py_Designer.Models
             saveFileDialog.ShowDialog();
             string path = saveFileDialog.FileName;
             Path = path;
-            if (path != "")
-                using (StreamWriter writer = new StreamWriter(path))
-                {
-                    foreach (string label in Labels.Values)
-                    {
-                        writer.Write(label.Replace("\t", "    "));
-                    }
-                    writer.Close();
-                }
+            Save(path);
         }
 
         
@@ -298,6 +292,7 @@ namespace Ren_Py_Designer.Models
            {"\tif", typeof(IfBlock) },
            {"\tshow", typeof(ShowBlock) },
            {"\tpython:", typeof(PythonBlock) },
+           {"\thide ", typeof(HideBlock) },
            {"\tdefine", typeof(CharacterBlock) }
         };
     }

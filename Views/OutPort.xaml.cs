@@ -106,6 +106,10 @@ namespace Flowchart_Framework.View
 
         private void Port_LeftMouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (Linked.Count > 0)
+            {
+                return;
+            }
             if (PortManager.From == null )
             {
                 PortManager.From = this;

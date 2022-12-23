@@ -38,6 +38,7 @@ namespace Ren_Py_Designer.Widgets.Menus
             AddLabel(new  DialogBlock());
             AddLabel(new  ShowBlock());
             AddLabel(new  CharacterBlock());
+            AddLabel(new  HideBlock());
             AddLabel(new  PythonBlock());
             Blocks.SelectedItem = null;
         }

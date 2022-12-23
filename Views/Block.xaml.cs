@@ -60,6 +60,21 @@ namespace Flowchart_Framework.View
 
         }
 
+        public void Delete()
+        {
+
+        }
+
+        public void Select()
+        {
+
+        }
+        
+        public void Unselect()
+        {
+
+        }
+
         private void UserControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             _state = "active";
