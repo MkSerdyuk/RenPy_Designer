@@ -292,7 +292,7 @@ namespace Ren_Py_Designer.Models
            {"\tif", typeof(IfBlock) },
            {"\tshow", typeof(ShowBlock) },
            {"\tpython:", typeof(PythonBlock) },
-           {"\thide ", typeof(HideBlock) },
+           {"\thide", typeof(HideBlock) },
            {"\tdefine", typeof(CharacterBlock) }
         };
     }
